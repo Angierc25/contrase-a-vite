@@ -1,88 +1,33 @@
 import React, { useState } from 'react';
-import useEmail from '../screens/hooks/useEmail';
-import { View, Text, Button,TextInput } from 'react'
 
 const PasswordForm = () => {
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   //codifica a partir de aqui victor
   //funcion para envia los datos.
-  /*
-  //Valores Iniciales
-  const INITIAL_STATE = {
-    newPassword: '',
-  }
-  //
 
-  const ConfirmPasswordForm = () => {
-    const [dataForm, setDataForm] = useState(INITIAL_STATE);
-    const { handleSendNewPassword } = useEmail();
-
-    //Logica para Cambiar la Contraseña
-    const getValues = (name, value) => {
-      setDataForm({
-        ...dataForm,
-        [name]: value
-      })
-    }
-
-    const handleSendPassword = async () => {
-      const objectSend = {
-        ...dataForm,
-      }
-
-      //control de errores para el crear un usuario
-      try {
-        const response = await handleSendNewPassword(objectSend, token);
-        if (response) {
-          alert("Contraseña Cambiada Correctamente")
-          setDataForm(INITIAL_STATE);
-        } else {
-          alert("No se cambio Correctamente la Contraseña");
-        }
-      } catch (error) {
-        alert("problema interno del servidor")
-      }
-      console.log("valor del formulario" + JSON.stringify(objectSend));
-    };
-    //Aqui Termina
-  */
-
-    return (
-      <View style={{
-        marginTop: 100,
-        paddingHorizontal: 25,
-      }}>
-        <TextInput
-          style={{
-            marginBottom: 25,
-            fontSize: 17,
-            borderBottomWidth: 1, // Cambiado de borderWidth
-            borderBottomColor: 'red', // Cambiado de borderColor
-            height: 40,
-            color: '#546574',
-            padding: 10,
-            borderRadius: 5,
-          }}
-          placeholder="Ingresar Nueva Contraseña"
-          placeholderTextColor="#546574"
-          //onChangeText={text => getValues('newPassword', text)}
-        />
-        <Button> style={{
-          backgroundColor: 'red',
-          paddingVertical: 12,
-          borderRadius: 5,
-          alignItems: 'center',
-          marginTop: 5,
-        }}>
-          <Text style={{
-            color: '#fff',
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}>Cambiar Contraseña</Text>
-        </Button>
-      </View >
-    )
+  
+  const handleChange = (event) => {
+    setPassword(event.target.value);
   };
 
+  return (
+    <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md">
+        <div className="flex items-center justify-center mb-6">
+          <img src="" alt= "Logo" className="h-8 w-8" />
+        </div>
+        <h1 className="text-4xl font-bold mb-10 text-center">Aplicacion react native</h1>
+        <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-lg">
+          <label htmlFor="" className="text-xl font-medium mb-2">Nueva Contraseña:</label>
+          <input type="" id="" value={''} onChange={handleChange} className="border-2 border-gray-300 rounded-lg p-2 mb-4 w-full" />
+          <button type="submit" className="bg-blue-500 text-white rounded-lg p-2 hover:bg-blue-600 w-full">Submit</button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default PasswordForm;
