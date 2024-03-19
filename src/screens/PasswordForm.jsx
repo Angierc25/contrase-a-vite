@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import useEmail from '../screens/hooks/useEmail'
-import { TextInput, StyleSheet } from 'react'
+import useEmail from '../screens/hooks/useEmail';
+import { View, Text, Button,TextInput } from 'react'
 
 const PasswordForm = () => {
 
   //codifica a partir de aqui victor
   //funcion para envia los datos.
-
+  /*
   //Valores Iniciales
   const INITIAL_STATE = {
     newPassword: '',
@@ -45,51 +45,44 @@ const PasswordForm = () => {
       console.log("valor del formulario" + JSON.stringify(objectSend));
     };
     //Aqui Termina
-
+  */
 
     return (
-      <View style={styles.container}>
+      <View style={{
+        marginTop: 100,
+        paddingHorizontal: 25,
+      }}>
         <TextInput
-          style={styles.input}
+          style={{
+            marginBottom: 25,
+            fontSize: 17,
+            borderBottomWidth: 1, // Cambiado de borderWidth
+            borderBottomColor: 'red', // Cambiado de borderColor
+            height: 40,
+            color: '#546574',
+            padding: 10,
+            borderRadius: 5,
+          }}
           placeholder="Ingresar Nueva Contraseña"
           placeholderTextColor="#546574"
-          onChangeText={text => getValues('newPassword', text)}
+          //onChangeText={text => getValues('newPassword', text)}
         />
-        <TouchableOpacity style={styles.button} onPress={handleSendPassword}>
-          <Text style={styles.buttonText}>Cambiar Contraseña</Text>
-        </TouchableOpacity>
-      </View>
+        <Button> style={{
+          backgroundColor: 'red',
+          paddingVertical: 12,
+          borderRadius: 5,
+          alignItems: 'center',
+          marginTop: 5,
+        }}>
+          <Text style={{
+            color: '#fff',
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}>Cambiar Contraseña</Text>
+        </Button>
+      </View >
     )
   };
-}
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 100, // Puedes ajustar este valor según tus necesidades
-    paddingHorizontal: 25, // Añadido para agregar espaciado a los lados
-  },
-  input: {
-    marginBottom: 25,
-    fontSize: 17,
-    borderBottomWidth: 1, // Cambiado de borderWidth
-    borderBottomColor: 'red', // Cambiado de borderColor
-    height: 40,
-    color: '#546574',
-    padding: 10,
-    borderRadius: 5,
-  },
-  button: {
-    backgroundColor: 'red',
-    paddingVertical: 12,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-})
 
 export default PasswordForm;
