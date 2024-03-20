@@ -1,31 +1,74 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const PasswordForm = () => {
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
   //codifica a partir de aqui victor
   //funcion para envia los datos.
-
-  
-  const handleChange = (event) => {
-    setPassword(event.target.value);
+  //Constantes
+  const [Password, setPassword] = useState({
+    token: '',
+    newPassword: '',
+  });
+  //Metodo Post
+  const ChangePassword = async () => {
+    try {
+      await axios.post('http://localhost:3000/cambiarPassword', Password, {
+        headers: {
+          'Authorization': `Bearer ${Password.token}`
+        }
+      });
+      Swal.fire({
+        icon: 'success',
+        title: 'Contraseña Cambiada exitosamente',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error('Error change password:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al Cambiar Contraseña',
+        text: 'Hubo un error al cambiar contraseña.',
+      });
+    }
   };
+  //
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md">
-        <div className="flex items-center justify-center mb-6">
-          <img src="" alt= "Logo" className="h-8 w-8" />
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className=" inset-10 bg-gray-500 opacity-90">
+          <div className="bg-white w-96 p-6 rounded-md shadow-md">
+            <h2 className="text-zinc-50">Cambiar Contraseña</h2>
+            <form className="car-form bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="newPassword">
+                  Nueva Contraseña:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  name='newPassword'
+                  value={setPassword.newPassword}
+                />
+              </div>
+
+              <div className="flex items-center justify-between mt-4">
+                <button
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  type="button"
+                  onClick={ChangePassword}
+                >
+                  Cambiar Contraseña
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <h1 className="text-4xl font-bold mb-10 text-center">Aplicacion react native</h1>
-        <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-lg">
-          <label htmlFor="" className="text-xl font-medium mb-2">Nueva Contraseña:</label>
-          <input type="" id="" value={''} onChange={handleChange} className="border-2 border-gray-300 rounded-lg p-2 mb-4 w-full" />
-          <button type="submit" className="bg-blue-500 text-white rounded-lg p-2 hover:bg-blue-600 w-full">Submit</button>
-        </form>
       </div>
+      )
     </div>
   );
 };
