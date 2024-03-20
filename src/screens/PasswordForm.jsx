@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const PasswordForm = () => {
+const PasswordForm = (token) => {
 
   //codifica a partir de aqui victor
   //funcion para envia los datos.
@@ -13,10 +13,10 @@ const PasswordForm = () => {
   });
 
   // Metodo Post
-  const ChangePassword = async () => {
+  const ChangePassword = async (token) => {
     try {
       const response = await axios.post('http://localhost:3000/cambiarPassword', {
-        token: Password.token,
+        token: token,
         newPassword: Password.newPassword,
       }, {
         headers: {
