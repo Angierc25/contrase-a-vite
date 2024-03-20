@@ -6,19 +6,24 @@ const PasswordForm = () => {
 
   //codifica a partir de aqui victor
   //funcion para envia los datos.
-  //Constantes
+  // Constantes
   const [Password, setPassword] = useState({
     token: '',
     newPassword: '',
   });
-  //Metodo Post
+
+  // Metodo Post
   const ChangePassword = async () => {
     try {
-      await axios.post('http://localhost:3000/cambiarPassword', Password, {
+      const response = await axios.post('http://localhost:3000/cambiarPassword', {
+        token: Password.token,
+        newPassword: Password.newPassword,
+      }, {
         headers: {
           'Authorization': `Bearer ${Password.token}`
         }
       });
+      console.log(response.data);
       Swal.fire({
         icon: 'success',
         title: 'Contraseña Cambiada exitosamente',
@@ -27,6 +32,7 @@ const PasswordForm = () => {
       });
     } catch (error) {
       console.error('Error change password:', error);
+
       Swal.fire({
         icon: 'error',
         title: 'Error al Cambiar Contraseña',
@@ -34,7 +40,15 @@ const PasswordForm = () => {
       });
     }
   };
-  //
+
+  // Handler para cambiar el valor del input
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPassword((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -51,7 +65,8 @@ const PasswordForm = () => {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   name='newPassword'
-                  value={setPassword.newPassword}
+                  value={Password.newPassword}
+                  onChange={e => setPassword({ ...Password, new :Password, newPassword: e.target.value })}
                 />
               </div>
 
@@ -59,7 +74,7 @@ const PasswordForm = () => {
                 <button
                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="button"
-                  onClick={ChangePassword}
+                  onClick={() => ChangePassword(Password.token)}
                 >
                   Cambiar Contraseña
                 </button>
@@ -68,7 +83,6 @@ const PasswordForm = () => {
           </div>
         </div>
       </div>
-      )
     </div>
   );
 };
