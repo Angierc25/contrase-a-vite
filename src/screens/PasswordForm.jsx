@@ -51,37 +51,42 @@ const PasswordForm = (token) => {
   };
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div className=" inset-10 bg-gray-500 opacity-90">
-          <div className="bg-white w-96 p-6 rounded-md shadow-md">
-            <h2 className="text-zinc-50">Cambiar Contraseña</h2>
-            <form className="car-form bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="newPassword">
-                  Nueva Contraseña:
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
-                  name='newPassword'
-                  value={Password.newPassword}
-                  onChange={e => setPassword({ ...Password, new :Password, newPassword: e.target.value })}
-                />
-              </div>
-
-              <div className="flex items-center justify-between mt-4">
-                <button
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button"
-                  onClick={() => ChangePassword(Password.token)}
-                >
-                  Cambiar Contraseña
-                </button>
-              </div>
-            </form>
+    <div className="flex items-center justify-center min-h-screen" style={{backgroundColor: 'navy', margin: 0, padding: 0, border: 'none'}}>
+      <div className="w-full max-w-md bg-gray-200 p-6 rounded-md shadow-md">
+        <h2 className="text-2xl font-bold mb-5 text-center">Cambiar Contraseña</h2>
+        <form>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="newPassword">
+              Nueva Contraseña
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="newPassword"
+              type="password"
+              placeholder="********"
+              name='newPassword'
+              value={Password.newPassword}
+              onChange={e => setPassword({ ...Password, newPassword: e.target.value })}
+              style={{ transition: 'all .3s ease' }}
+              onFocus={(e) => { e.target.style.boxShadow = '0 0 5px 2px #3b82f6'; e.target.style.transform = 'scale(1.05)' }}
+              onBlur={(e) => { e.target.style.boxShadow = 'none'; e.target.style.transform = 'scale(1.0)' }}
+            />
           </div>
-        </div>
+          <div className="flex items-center justify-center">
+            <button
+              className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-500 ease-in-out"
+              type="button"
+              onClick={() => ChangePassword(Password.token)}
+              onMouseOver={(e) => { e.target.style.boxShadow = '0 0 5px 2px #9f7aea'; e.target.style.transform = 'scale(1.05)' }}
+              onMouseOut={(e) => { e.target.style.boxShadow = 'none'; e.target.style.transform = 'scale(1.0)' }}
+            >
+              Cambiar Contraseña
+            </button>
+          </div>
+        </form>
+        <p className="text-center text-gray-500 text-xs mt-3">
+          &copy;2024 Mi Empresa. Todos los derechos reservados.
+        </p>
       </div>
     </div>
   );
