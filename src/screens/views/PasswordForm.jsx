@@ -1,57 +1,53 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+//Importaciones 
+import { useState, useEffect } from 'react'
+import useEmail from '../hooks/useEmail';
 
-const PasswordForm = (token) => {
+//
+
+const PasswordForm = () => {
 
   //codifica a partir de aqui victor
   //funcion para envia los datos.
-  // Constantes
-  const [Password, setPassword] = useState({
-    token: '',
-    newPassword: '',
-  });
+  //Valores Iniciales
+  const INITIAL_STATE = {
+    password: '',
+  }
+  //
 
   // Metodo Post
-  const ChangePassword = async (token) => {
+  const [dataForm, setDataForm] = useState(INITIAL_STATE);
+  const { handleSendNewPassword } = useEmail();
+
+  //Logica para Cambiar la Contraseña
+  const getValues = (name, value) => {
+    setDataForm({
+      ...dataForm,
+      [name]: value
+    })
+  }
+
+  const handleSendPassword = async () => {
+    
     try {
-      const response = await axios.post('http://localhost:3000/cambiarPassword', {
-        token: token,
-        newPassword: Password.newPassword,
-      }, {
-        headers: {
-          'Authorization': `Bearer ${Password.token}`
-        }
-      });
-      console.log(response.data);
-      Swal.fire({
-        icon: 'success',
-        title: 'Contraseña Cambiada exitosamente',
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      const response = await handleSendNewPassword(password, token);
+      if (response) {
+        alert("Contraseña Cambiada Correctamente")
+        setDataForm(INITIAL_STATE);
+      } else {
+        alert("No se cambio Correctamente la Contraseña");
+      }
     } catch (error) {
-      console.error('Error change password:', error);
-
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al Cambiar Contraseña',
-        text: 'Hubo un error al cambiar contraseña.',
-      });
+      alert("problema interno del servidor")
     }
+    console.log("valor del formulario" + JSON.stringify(password));
   };
+  //Aqui Termina
 
-  // Handler para cambiar el valor del input
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setPassword((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   return (
-    <div className="flex items-center justify-center min-h-screen" style={{backgroundColor: 'navy', margin: 0, padding: 0, border: 'none'}}>
+    <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: 'navy', margin: 0, padding: 0, border: 'none' }}>
       <div className="w-full max-w-md bg-gray-200 p-6 rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-5 text-center">Cambiar Contraseña</h2>
         <form>
@@ -65,8 +61,8 @@ const PasswordForm = (token) => {
               type="password"
               placeholder="********"
               name='newPassword'
-              value={Password.newPassword}
-              onChange={e => setPassword({ ...Password, newPassword: e.target.value })}
+              defaultValue={dataForm.password}
+              onChangeText={(text) => getValues("password", text)}
               style={{ transition: 'all .3s ease' }}
               onFocus={(e) => { e.target.style.boxShadow = '0 0 5px 2px #3b82f6'; e.target.style.transform = 'scale(1.05)' }}
               onBlur={(e) => { e.target.style.boxShadow = 'none'; e.target.style.transform = 'scale(1.0)' }}
@@ -76,7 +72,7 @@ const PasswordForm = (token) => {
             <button
               className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-500 ease-in-out"
               type="button"
-              onClick={() => ChangePassword(Password.token)}
+              onClick={handleSendPassword}
               onMouseOver={(e) => { e.target.style.boxShadow = '0 0 5px 2px #9f7aea'; e.target.style.transform = 'scale(1.05)' }}
               onMouseOut={(e) => { e.target.style.boxShadow = 'none'; e.target.style.transform = 'scale(1.0)' }}
             >

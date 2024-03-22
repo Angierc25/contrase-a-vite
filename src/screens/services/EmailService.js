@@ -12,9 +12,9 @@ const sendemail = async (credentialsrecovery)  => {
     }
 }
 
-const sendnewpassword = async (credentialsnewpassword)  => {
+const sendnewpassword = async (token, newPassword)  => {
     try {
-        const {data, status} = await apiClient.post(`/cambiarPassword`, credentialsnewpassword);
+        const {data, status} = await apiClient.post(`/cambiarPassword/${token}`, newPassword);
         return {
             data,
             status
