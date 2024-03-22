@@ -1,9 +1,10 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 //Importaciones 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import useEmail from '../hooks/useEmail';
-
+//Impotacion de Localizar Tokem
+import { useLocation } from 'react-router-dom';
 //
 
 const PasswordForm = () => {
@@ -19,6 +20,17 @@ const PasswordForm = () => {
   // Metodo Post
   const [dataForm, setDataForm] = useState(INITIAL_STATE);
   const { handleSendNewPassword } = useEmail();
+  const location = useLocation(); // Obtener la ubicación actual del navegador
+
+  //Metodo Localizar Tokem
+  // Obtener el token del URL
+  const obtenerTokenDeURL = () => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('token');
+  };
+  //
+
+  const token = obtenerTokenDeURL(); // Obtener el token del URL
 
   //Logica para Cambiar la Contraseña
   const getValues = (name, value) => {
@@ -29,19 +41,20 @@ const PasswordForm = () => {
   }
 
   const handleSendPassword = async () => {
-    
+
     try {
-      const response = await handleSendNewPassword(password, token);
+      const response = await handleSendNewPassword(dataForm.password, token);
       if (response) {
         alert("Contraseña Cambiada Correctamente")
         setDataForm(INITIAL_STATE);
       } else {
         alert("No se cambio Correctamente la Contraseña");
+        console.log(Error)
       }
     } catch (error) {
+      console.error("Error:", error);
       alert("problema interno del servidor")
     }
-    console.log("valor del formulario" + JSON.stringify(password));
   };
   //Aqui Termina
 
@@ -52,17 +65,17 @@ const PasswordForm = () => {
         <h2 className="text-2xl font-bold mb-5 text-center">Cambiar Contraseña</h2>
         <form>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="newPassword">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
               Nueva Contraseña
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="newPassword"
+              id="password"
               type="password"
               placeholder="********"
-              name='newPassword'
+              name='password'
               defaultValue={dataForm.password}
-              onChangeText={(text) => getValues("password", text)}
+              onChange={(e) => getValues("password", e.target.value)}
               style={{ transition: 'all .3s ease' }}
               onFocus={(e) => { e.target.style.boxShadow = '0 0 5px 2px #3b82f6'; e.target.style.transform = 'scale(1.05)' }}
               onBlur={(e) => { e.target.style.boxShadow = 'none'; e.target.style.transform = 'scale(1.0)' }}

@@ -4,14 +4,18 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import PasswordForm from './screens/views/PasswordForm'
 import EmailProvider from './screens/context/email/EmailProvider'
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
 
   return (
-  <EmailProvider>
-    <PasswordForm/>
-  </EmailProvider>
-    
+    <Router>
+      <EmailProvider>
+        <PasswordForm />
+      </EmailProvider>
+    </Router>
+
+
   )
 }
 

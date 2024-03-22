@@ -11,8 +11,8 @@ const EmailProvider = ({ children }) => {
     }
   }
 
-  const handleSendNewPassword = async (password,token) => {
-    const { status } = await sendnewpassword(password,token);
+  const handleSendNewPassword = async (password, token) => {
+    const { status } = await sendnewpassword(password, token);
     if (status === 200 || status === 201) {
       return true;
     } else {
