@@ -55,10 +55,15 @@ const PasswordForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen" style={{ backgroundImage: 'url("https://images.pexels.com/photos/188035/pexels-photo-188035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',backgroundSize: 'cover',backgroundPosition: 'center', margin: 0, padding: 0}}>
-      <div className="w-full max-w-md bg-gradient-to-br from-gray-400 to-gray-60 p-6 rounded-md shadow-md">
+    <div className="flex">
+      <img
+        src="https://images.pexels.com/photos/188035/pexels-photo-188035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        alt="Imagen de fondo"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
+      <div className="relative z-full w-full max-w-md bg-gradient-to-br from-gray-400 to-gray-60 p-6 rounded-md shadow-md">
         <h2 className="text-2xl font-serif mb-5 text-center">Cambiar Contraseña</h2>
-        <form>
+        <form >
           <div className="mb-4 relative">
             <label className="block text-gray-700 text-sm font-serif mb-2" htmlFor="password">
               Nueva Contraseña
