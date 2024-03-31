@@ -61,6 +61,7 @@ const PasswordForm = () => {
         alt="Imagen de fondo"
         className="absolute -inset-x-0  -inset-y-px w-full h-full object-cover z-0"
       />
+      <div className="justify-center items-center p-48 left-80">
       <div className="relative z-full w-full max-w-md bg-gradient-to-br from-gray-400 to-gray-60 p-6 rounded-md shadow-md ">
         <h2 className="text-2xl font-serif mb-5 text-center">Cambiar Contraseña</h2>
         <form >
@@ -100,6 +101,7 @@ const PasswordForm = () => {
         <p className="text-center text-gray-700 text-xs ">
           &copy;2024 Mi Empresa. Todos los derechos reservados.
         </p>
+      </div>
       </div>
       </div>
   );
