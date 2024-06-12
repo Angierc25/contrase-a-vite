@@ -10,34 +10,43 @@ const PasswordForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
+    // Extrae el token de la URL cuando el componente se monta
     const searchParams = new URLSearchParams(window.location.search);
     const urlToken = searchParams.get('token');
     if (urlToken) {
-      setToken(urlToken);
+      setToken(urlToken); // Almacena el token en el estado si está presente en la URL
     }
   }, []);
-
+  
+  /**
+   * handleSendPassword - Función asincrónica para enviar la nueva contraseña al servidor.
+   * Envía una solicitud POST al servidor con el token de autenticación y la nueva contraseña.
+   * Muestra una alerta de éxito o error basada en la respuesta del servidor.
+   */
   const handleSendPassword = async () => {
     try {
+      // Envía la solicitud POST al servidor
       const response = await axios.post(
         'http://localhost:3000/cambiarPassword',
         {
-          token: token,
-          password: password,
+          token: token, // Incluye el token en el cuerpo de la solicitud
+          password: password, // Incluye la nueva contraseña en el cuerpo de la solicitud
         },
         {
           headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}` // Añade el token en el encabezado de la solicitud
           }
         }
       );
       console.log(response.data);
+      // Muestra una alerta de éxito si la solicitud fue exitosa
       Swal.fire({
         icon: 'success',
         title: 'Contraseña Cambiada exitosamente',
       });
     } catch (error) {
       console.error('Error change password:', error);
+      // Muestra una alerta de error si la solicitud falló
       Swal.fire({
         icon: 'error',
         title: 'Error al Cambiar Contraseña',
@@ -45,11 +54,17 @@ const PasswordForm = () => {
     }
   };
 
+   /**
+   * Función para manejar el cambio en el input de contraseña.
+   */
   const handleInputChange = (e) => {
     const { value } = e.target;
     setPassword(value);
   };
 
+   /**
+   * Función para alternar la visibilidad de la contraseña.
+   */
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
