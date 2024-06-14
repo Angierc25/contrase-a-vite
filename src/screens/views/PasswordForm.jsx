@@ -27,7 +27,7 @@ const PasswordForm = () => {
     try {
       // Envía la solicitud POST al servidor
       const response = await axios.post(
-        'http://localhost:3000/cambiarPassword',
+        'https://pos-back-production.up.railway.app/cambiarPassword',
         {
           token: token, // Incluye el token en el cuerpo de la solicitud
           password: password, // Incluye la nueva contraseña en el cuerpo de la solicitud
