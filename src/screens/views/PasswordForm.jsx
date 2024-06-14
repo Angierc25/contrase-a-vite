@@ -17,7 +17,7 @@ const PasswordForm = () => {
       setToken(urlToken); // Almacena el token en el estado si está presente en la URL
     }
   }, []);
-  
+
   /**
    * handleSendPassword - Función asincrónica para enviar la nueva contraseña al servidor.
    * Envía una solicitud POST al servidor con el token de autenticación y la nueva contraseña.
@@ -54,73 +54,65 @@ const PasswordForm = () => {
     }
   };
 
-   /**
-   * Función para manejar el cambio en el input de contraseña.
-   */
+  /**
+  * Función para manejar el cambio en el input de contraseña.
+  */
   const handleInputChange = (e) => {
     const { value } = e.target;
     setPassword(value);
   };
 
-   /**
-   * Función para alternar la visibilidad de la contraseña.
-   */
+  /**
+  * Función para alternar la visibilidad de la contraseña.
+  */
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   return (
-    <div className="flex">
-      <img
-        src="https://images.pexels.com/photos/188035/pexels-photo-188035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt="Imagen de fondo"
-        className="absolute -inset-x-0  -inset-y-px w-full h-full object-cover z-0"
-      />
-      <div className='mx-auto'>
-        <div className="justify-center items-center p-48" >
-          <div className="relative z-full w-full max-w-md bg-gradient-to-br from-gray-400 to-gray-60 p-6 rounded-md shadow-md ">
-            <h2 className="text-2xl font-serif mb-5 text-center">Cambiar Contraseña</h2>
-            <form >
-              <div className="mb-4 relative">
-                <label className="block text-gray-700 text-sm font-serif mb-2" htmlFor="password">
-                  Nueva Contraseña
-                </label>
-                <div className="flex items-center">
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder=""
-                    value={password}
-                    onChange={handleInputChange}
-                    style={{ transition: 'all .3s ease' }}
-                    onFocus={(e) => { e.target.style.boxShadow = '0 0 5px 2px #3b82f6'; e.target.style.transform = 'scale(1.05)' }}
-                    onBlur={(e) => { e.target.style.boxShadow = 'none'; e.target.style.transform = 'scale(1.0)' }}
-                  />
-                  <span className="ml-2 cursor-pointer" onClick={toggleShowPassword}>
-                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="text-slate-950" />
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <button
-                  className="bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-300 hover:to-orange-500 text-slate-900 bg-orange-400 bg-opacity-50 text-white font-serif py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-500 ease-in-out"
-                  type="button"
-                  onClick={handleSendPassword}
-                  onMouseOver={(e) => { e.target.style.boxShadow = '0 0 5px 2px #9f7aea'; e.target.style.transform = 'scale(1.05)' }}
-                  onMouseOut={(e) => { e.target.style.boxShadow = 'none'; e.target.style.transform = 'scale(1.0)' }}
-                >
-                  Cambiar Contraseña
-                </button>
-              </div>
-            </form>
-            <p className="text-center text-gray-700 text-xs ">
-              &copy;2024 Mi Empresa. Todos los derechos reservados.
-            </p>
-          </div>
+    <div className="flex min-h-screen items-center justify-center bg-gray-950 py-12 px-4 sm:px-6 lg:px-8">
+  <div className='mx-auto sm:w-96 md:w-1/2 lg:w-1/3 xl:w-1/4'> {/* Ajusta el tamaño del formulario aquí */}
+    <div className='mb-4'>
+      <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-50">Cambiar contraseña</h2>
+      <p className="mt-2 text-center text-sm text-gray-400">
+        Ingresa la nueva contraseña que deseas establecer.
+      </p>
+    </div>
+    <form className="bg-white shadow-md rounded-md px-8 pt-6 pb-8 mb-4 w-full h-auto"> {/* Ajusta el tamaño del formulario aquí */}
+      <div className="mb-4">
+        <label className="block text-gray-700 text-center text-xl font-bold mt-10" htmlFor="password">
+          Nueva Contraseña
+        </label>
+        <div className="relative flex items-center border rounded-lg overflow-hidden md:w-full focus:border-black">
+          <input
+            className="w-full px-4 py-3 text-gray-900 focus:outline-none placeholder:text-gray-500"
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            placeholder="********"
+            value={password}
+            onChange={handleInputChange}
+          />
+          <span className="cursor-pointer" onClick={toggleShowPassword}>
+            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="text-slate-950" />
+          </span>
         </div>
       </div>
-    </div>
+      <div className="flex items-center justify-center mt-4">
+        <button
+          className="w-full bg-[#ff6b6b] hover:bg-[#ffa500] text-gray-50 rounded p-3"
+          type="button"
+          onClick={handleSendPassword}
+        >
+          Cambiar Contraseña
+        </button>
+      </div>
+    </form>
+    <p className="text-center text-gray-700 text-xs ">
+      ©2024 Mi Empresa. Todos los derechos reservados.
+    </p>
+  </div>
+</div>
+
   );
 };
 
